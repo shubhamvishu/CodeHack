@@ -49,11 +49,11 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 loginProgress.setTitle("Logging In");
                 loginProgress.setMessage("Please wait...");
-                loginProgress.setCanceledOnTouchOutside(false);
+                loginProgress.setCanceledOnTouchOutside(true);
                 loginProgress.show();
                 String email=username.getText().toString();
                 String pass=password.getText().toString();
-                if(!email.isEmpty() && !pass.isEmpty()){
+                if(!email.isEmpty() && !pass.isEmpty() && email!=null && pass!=null){
                     loginUser(email,pass);
                 }
             }
