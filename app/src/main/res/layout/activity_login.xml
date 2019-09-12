@@ -24,7 +24,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/username_login"
         android:layout_width="325dp"
         android:layout_height="60dp"
         android:layout_alignParentStart="true"
@@ -34,9 +34,9 @@
         android:background="@drawable/textfield"
         android:drawableStart="@drawable/ic_person_black_24dp"
         android:hint="@string/username"
+        android:inputType="textPersonName"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:inputType="textPersonName"
         android:singleLine="true"
         android:textColor="#ddd"
         android:textColorHint="#ccc" />
@@ -56,7 +56,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/password_login"
         android:layout_width="325dp"
         android:layout_height="60dp"
         android:layout_alignParentStart="true"
@@ -116,8 +116,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="46dp"
-        android:layout_marginTop="358dp"
-        android:shadowColor="#00FF5555"
+        android:layout_marginTop="360dp"
+        android:buttonTint="#16B90E"
         android:text="@string/remember"
         android:textColor="#fff"
         android:textColorHint="#16B90E"

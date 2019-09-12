@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar"
+        android:background="@color/colorMain"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <TextView
         android:id="@+id/textView"
         android:layout_width="94dp"
@@ -11,4 +19,15 @@
         android:layout_marginStart="177dp"
         android:layout_marginTop="337dp"
         android:text="MAIN PAGE" />
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="145dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="149dp"
+        android:layout_marginTop="398dp"
+        android:background="@drawable/btn1"
+        android:text="Log Out" />
 </RelativeLayout>
