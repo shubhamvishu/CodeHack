@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "958159129325",
+    "firebase_url": "https://codehack-e3d6f.firebaseio.com",
+    "project_id": "codehack-e3d6f",
+    "storage_bucket": "codehack-e3d6f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:958159129325:android:bdabb88e73199a30451ae4",
+        "android_client_info": {
+          "package_name": "com.example.codehack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "958159129325-qo96bvvi0mkb7dv01lecu09moko49f6e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.codehack",
+            "certificate_hash": "81f23d4ede9825f281e7c051656810ea48d8db93"
+          }
+        },
+        {
+          "client_id": "958159129325-hmashs5undfin3tfpra68vp289gl5p03.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAn2ImQPkBB2P402VC0jH27FyfXZ6fT8Hw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "958159129325-hmashs5undfin3tfpra68vp289gl5p03.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
