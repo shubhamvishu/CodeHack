@@ -5,21 +5,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private RelativeLayout page;
     private TextView signup;
     private Button signin;
     private EditText username,password;
@@ -31,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mAuth=FirebaseAuth.getInstance();
+        page=(RelativeLayout)findViewById(R.id.loginpage);
         signup=(TextView)findViewById(R.id.signupbtn);
         signin=(Button)findViewById(R.id.signinbtn);
         username=(EditText)findViewById(R.id.username_login);
@@ -47,14 +52,25 @@ public class LoginActivity extends AppCompatActivity {
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loginProgress.setTitle("Logging In");
-                loginProgress.setMessage("Please wait...");
-                loginProgress.setCanceledOnTouchOutside(true);
-                loginProgress.show();
+
                 String email=username.getText().toString();
                 String pass=password.getText().toString();
                 if(!email.isEmpty() && !pass.isEmpty() && email!=null && pass!=null){
+                    loginProgress.setTitle("Logging In");
+                    loginProgress.setMessage("Please wait...");
+                    loginProgress.setCanceledOnTouchOutside(false);
+                    loginProgress.show();
                     loginUser(email,pass);
+                }
+                else{
+                    //Toast.makeText(LoginActivity.this,"Empty Credentials",Toast.LENGTH_SHORT).show();
+                    final Snackbar snack=Snackbar.make(page,"Empty Credentials",3000).setAction("CLOSE", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    }).setActionTextColor(Color.GREEN);
+                    snack.show();
                 }
             }
         });
@@ -73,7 +89,14 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else {
                     loginProgress.hide();
-                    Toast.makeText(LoginActivity.this,"Login failed.....Wrong username/password",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(LoginActivity.this,"Login failed.....Wrong username/password",Toast.LENGTH_SHORT).show();
+                    final Snackbar snack=Snackbar.make(page,"Wrong username/password",3000).setAction("CLOSE", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    }).setActionTextColor(Color.GREEN);
+                    snack.show();
                 }
             }
         });

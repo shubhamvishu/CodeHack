@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:title="Settings"
         android:id="@+id/settings_option"/>
-    <item android:title="Users"
-        android:id="@+id/users_option"/>
     <item android:title="About Us"
         android:id="@+id/aboutus_option"/>
+    <item android:title="Logout"
+        android:id="@+id/logout_option"/>
     <item android:title=""
         android:id="@+id/search_id"
         android:icon="@drawable/ic_search_black_24dp"

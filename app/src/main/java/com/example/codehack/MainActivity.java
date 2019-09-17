@@ -7,11 +7,15 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 
 import android.support.v4.app.*;
+import android.widget.Toast;
+
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -20,7 +24,9 @@ public class MainActivity extends AppCompatActivity {
     Button backbtn;
     Toolbar toolbar;
     private FirebaseAuth mAuth;
-
+    private ViewPager mViewPager;
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private TabLayout mTabLayout;
     /*private ViewPager mainPager;
     private SectionsPagerAdapter msection;
     private TableLayout mtablayout;*/
@@ -33,6 +39,13 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar=(Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mViewPager=(ViewPager)findViewById(R.id.main_tabPager);
+        mSectionsPagerAdapter=new SectionsPagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        mTabLayout=(TabLayout)findViewById(R.id.main_tabs);
+        mTabLayout.setupWithViewPager(mViewPager);
         //getSupportActionBar().setDisplayHomeAsUpEnabled();
         /*mainPager=(ViewPager)findViewById(R.id.mainView);
         msection=new SectionsPagerAdapter(getSupportFragmentManager());
@@ -45,16 +58,37 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                Intent newIntent=new Intent(MainActivity.this,LoginActivity.class);
-                startActivity(newIntent);
-                finish();
+                sendToStart();
             }
         });
+    }
+    public void sendToStart(){
+        Intent newIntent=new Intent(MainActivity.this,LoginActivity.class);
+        startActivity(newIntent);
+        finish();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_main,menu);
         return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id=item.getItemId();
+        switch (id)
+        {
+            case R.id.settings_option:
+                Toast.makeText(this,"Settings clicked",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.logout_option:Toast.makeText(this,"Logging out",Toast.LENGTH_SHORT).show();
+                mAuth.signOut();
+                sendToStart();
+                break;
+            case R.id.aboutus_option:Toast.makeText(this,"About Us clicked",Toast.LENGTH_SHORT).show();
+                break;
+            case android.R.id.home:finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
     @Override
     public void onStart() {

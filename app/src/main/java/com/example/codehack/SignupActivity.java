@@ -6,16 +6,19 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
@@ -24,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SignupActivity extends AppCompatActivity {
 
+    private RelativeLayout signup_page;
     private TextInputLayout sname;
     private TextInputLayout semail;
     private TextInputLayout spassword;
@@ -42,6 +46,8 @@ public class SignupActivity extends AppCompatActivity {
 
         toolbar=(Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Sign Up");
+        signup_page=(RelativeLayout)findViewById(R.id.signuppage);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         sname=(TextInputLayout)findViewById(R.id.signup_name);
         semail=(TextInputLayout)findViewById(R.id.signup_email);
@@ -62,8 +68,16 @@ public class SignupActivity extends AppCompatActivity {
                     if (name != "" && email != "" && password !="")
                         registerNewUser(name, email, password);
                 }
-                else
-                    Toast.makeText(SignupActivity.this,"Wrong credentials",Toast.LENGTH_SHORT).show();
+                else {
+                    //Toast.makeText(SignupActivity.this, "Wrong credentials", Toast.LENGTH_SHORT).show();
+                    final Snackbar snack = Snackbar.make(signup_page, "Empty Credentials", 3000).setAction("CLOSE", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    }).setActionTextColor(Color.GREEN);
+                    snack.show();
+                }
             }
         });
     }
@@ -100,7 +114,7 @@ public class SignupActivity extends AppCompatActivity {
                             mprogress.dismiss();
                             Log.d("Success", "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent mainIntent=new Intent(SignupActivity.this,MainActivity.class);
+                            Intent mainIntent=new Intent(SignupActivity.this,LoginActivity.class);
                             startActivity(mainIntent);
                             finish();
                             //updateUI(user);
