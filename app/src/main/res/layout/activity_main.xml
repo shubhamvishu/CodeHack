@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainpage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eee"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="#eee">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
@@ -68,49 +69,49 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_bias="0.963"
         app:menu_backgroundColor="@android:color/transparent"
-        app:menu_fab_label=""
-        app:menu_openDirection="up"
-        app:menu_showShadow="true"
         app:menu_colorNormal="@color/colorMain"
         app:menu_colorPressed="@color/colorMain"
         app:menu_colorRipple="@color/colorDark"
+        app:menu_fab_label=""
         app:menu_labels_colorNormal="@color/colorLight"
         app:menu_labels_colorPressed="@color/colorLight"
         app:menu_labels_colorRipple="@color/colorLight"
-        app:menu_labels_textColor="@color/colorBlack">
+        app:menu_labels_textColor="@color/colorBlack"
+        app:menu_openDirection="up"
+        app:menu_showShadow="true">
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/floatingButton1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_photo_camera_black_24dp"
-            app:fab_label="Photo"
-            app:fab_size="mini"
             app:fab_colorNormal="@color/colorMain"
             app:fab_colorPressed="@color/colorDark"
-            app:fab_colorRipple="@color/colorDark"/>
+            app:fab_colorRipple="@color/colorDark"
+            app:fab_label="Photo"
+            app:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/floatingButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_mic_black_24dp"
-            app:fab_label="Record"
-            app:fab_size="mini"
             app:fab_colorNormal="@color/colorMain"
             app:fab_colorPressed="@color/colorDark"
-            app:fab_colorRipple="@color/colorDark"/>
+            app:fab_colorRipple="@color/colorDark"
+            app:fab_label="Record"
+            app:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/floatingButton3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_mode_edit_black_24dp"
-            app:fab_label="Edit"
-            app:fab_size="mini"
             app:fab_colorNormal="@color/colorMain"
             app:fab_colorPressed="@color/colorDark"
-            app:fab_colorRipple="@color/colorDark"/>
+            app:fab_colorRipple="@color/colorDark"
+            app:fab_label="Edit"
+            app:fab_size="mini" />
     </com.github.clans.fab.FloatingActionMenu>
 
     <Button

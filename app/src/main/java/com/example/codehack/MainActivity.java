@@ -2,9 +2,11 @@ package com.example.codehack;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +17,7 @@ import android.widget.TableLayout;
 import android.support.v4.app.*;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button backbtn;
     Toolbar toolbar;
+    private ConstraintLayout mainpage;
     private FirebaseAuth mAuth;
     private ViewPager mViewPager;
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -37,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        mainpage=(ConstraintLayout)findViewById(R.id.mainpage);
         toolbar=(Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -57,8 +62,21 @@ public class MainActivity extends AppCompatActivity {
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                sendToStart();
+                //FirebaseAuth.getInstance().signOut();
+                //sendToStart();
+                final Snackbar snack=Snackbar.make(mainpage,"Want to logout ?",3000).setAction("CANCEL", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                }).setActionTextColor(Color.GREEN).setAction("YES", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mAuth.signOut();
+                        sendToStart();
+                    }
+                }).setActionTextColor(Color.GREEN);
+                snack.show();
             }
         });
     }
@@ -80,9 +98,21 @@ public class MainActivity extends AppCompatActivity {
             case R.id.settings_option:
                 Toast.makeText(this,"Settings clicked",Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.logout_option:Toast.makeText(this,"Logging out",Toast.LENGTH_SHORT).show();
-                mAuth.signOut();
-                sendToStart();
+            case R.id.logout_option:
+                final Snackbar snack=Snackbar.make(mainpage,"Want to logout ?",3000).setAction("CANCEL", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //snack.dismiss();
+                    }
+                }).setActionTextColor(Color.GREEN).setAction("YES", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mAuth.signOut();
+                        sendToStart();
+                    }
+                }).setActionTextColor(Color.GREEN);
+                snack.show();
+                Toast.makeText(this,"Logging out",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.aboutus_option:Toast.makeText(this,"About Us clicked",Toast.LENGTH_SHORT).show();
                 break;
