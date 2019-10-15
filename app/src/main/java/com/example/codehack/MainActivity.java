@@ -96,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
         switch (id)
         {
             case R.id.settings_option:
+                Intent i=new Intent(MainActivity.this,SettingsActivity.class);
+                startActivity(i);
                 Toast.makeText(this,"Settings clicked",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.logout_option:

@@ -15,32 +15,60 @@
         android:background="@color/colorDarkBlue"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+    <Button
+        android:id="@+id/signup_btn"
+        android:layout_width="358dp"
+        android:layout_height="58dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="562dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/btn1"
+        android:text="@string/signup"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/signup_name"
+        android:id="@+id/signup_password"
         android:layout_width="358dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="100dp">
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="437dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Name"
-            android:drawableStart="@drawable/ic_person_black_24dp"
-            android:inputType="text"
-            android:text=""
-            android:textColorLink="#333" />
-
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_lock_black_24dp"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:text="" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="88dp"
+        app:srcCompat="@drawable/adduser" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/signup_email"
         android:layout_width="358dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="30dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="356dp"
         android:hint="Email Id">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -51,32 +79,24 @@
             android:text="" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/signup_btn"
-        android:layout_width="358dp"
-        android:layout_height="58dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="415dp"
-        android:background="@drawable/btn1"
-        android:text="Lets Go"
-        android:textColor="#fff" />
-
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/signup_password"
+        android:id="@+id/signup_name"
         android:layout_width="358dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="260dp">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="285dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_lock_black_24dp"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:text="" />
+            android:layout_height="match_parent"
+            android:drawableStart="@drawable/ic_person_black_24dp"
+            android:hint="Name"
+            android:inputType="text"
+            android:text=""
+            android:textColorLink="#333" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
 </RelativeLayout>

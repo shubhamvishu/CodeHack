@@ -24,6 +24,10 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -36,6 +40,7 @@ public class SignupActivity extends AppCompatActivity {
 
     private ProgressDialog mprogress;
     private FirebaseAuth mAuth;
+    private DatabaseReference mdatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,19 +109,38 @@ public class SignupActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void registerNewUser(String name, String email, String password) {
+    private void registerNewUser(final String name, String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            mprogress.dismiss();
-                            Log.d("Success", "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Intent mainIntent=new Intent(SignupActivity.this,LoginActivity.class);
-                            startActivity(mainIntent);
-                            finish();
+                            final FirebaseUser currUser=FirebaseAuth.getInstance().getCurrentUser();
+                            String uid=currUser.getUid();
+                            mdatabase=FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+                            HashMap<String,String> usermap=new HashMap<>();
+                            usermap.put("name",name);
+                            usermap.put("image","default");
+                            mdatabase.setValue(usermap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        mprogress.dismiss();
+                                        Log.d("Success", "createUserWithEmail:success");
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        Intent mainIntent=new Intent(SignupActivity.this,LoginActivity.class);
+                                        startActivity(mainIntent);
+                                        finish();
+                                    }
+                                    else {
+                                        mprogress.dismiss();
+                                        currUser.delete();
+                                        Toast.makeText(SignupActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
