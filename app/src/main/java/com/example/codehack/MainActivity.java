@@ -116,7 +116,10 @@ public class MainActivity extends AppCompatActivity {
                 snack.show();
                 Toast.makeText(this,"Logging out",Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.aboutus_option:Toast.makeText(this,"About Us clicked",Toast.LENGTH_SHORT).show();
+            case R.id.aboutus_option:
+                Intent intent=new Intent(MainActivity.this,AboutusActivity.class);
+                startActivity(intent);
+                Toast.makeText(this,"About Us clicked",Toast.LENGTH_SHORT).show();
                 break;
             case android.R.id.home:finish();
         }

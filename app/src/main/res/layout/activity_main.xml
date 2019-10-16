@@ -40,8 +40,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.048"
-            app:tabIndicatorColor="#FFEB3B"
-            app:tabRippleColor="#30333F"
+            app:tabIndicatorColor="#FCE601"
+            app:tabRippleColor="#838BA7"
             app:tabTextColor="#fff" />
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -84,7 +84,7 @@
             android:id="@+id/floatingButton1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_photo_camera_black_24dp"
+            android:src="@drawable/ic_photo_camera_white_24dp"
             app:fab_colorNormal="@color/colorMain"
             app:fab_colorPressed="@color/colorDark"
             app:fab_colorRipple="@color/colorDark"

@@ -98,11 +98,12 @@ public class SignupActivity extends AppCompatActivity {
         int id=item.getItemId();
         switch (id)
         {
-            case R.id.settings_option:Toast.makeText(this,"Settings clicked",Toast.LENGTH_SHORT).show();
-                                        break;
-            case R.id.users_option:Toast.makeText(this,"Users clicked",Toast.LENGTH_SHORT).show();
+            case R.id.help_me:Toast.makeText(this,"Help me",Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.aboutus_option:Toast.makeText(this,"About Us clicked",Toast.LENGTH_SHORT).show();
+            case R.id.aboutus_option:
+                Intent i=new Intent(SignupActivity.this,AboutusActivity.class);
+                startActivity(i);
+                Toast.makeText(this,"About Us clicked",Toast.LENGTH_SHORT).show();
                 break;
             case android.R.id.home:finish();
         }
