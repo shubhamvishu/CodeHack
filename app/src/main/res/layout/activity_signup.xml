@@ -22,9 +22,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="562dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="602dp"
+        android:layout_marginEnd="28dp"
         android:background="@drawable/btn1"
         android:text="@string/signup"
         android:textColor="#fff"
@@ -39,7 +39,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="30dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="437dp">
+        android:layout_marginTop="415dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -68,7 +68,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="30dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="356dp"
+        android:layout_marginTop="350dp"
         android:hint="Email Id">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -97,6 +97,25 @@
             android:text=""
             android:textColorLink="#333" />
 
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/signup_confirm_password"
+        android:layout_width="358dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="480dp"
+        android:layout_marginEnd="26dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="358dp"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_lock_black_24dp"
+            android:hint="Confirm Password"
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
 </RelativeLayout>

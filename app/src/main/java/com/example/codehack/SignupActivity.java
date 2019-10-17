@@ -35,6 +35,7 @@ public class SignupActivity extends AppCompatActivity {
     private TextInputLayout sname;
     private TextInputLayout semail;
     private TextInputLayout spassword;
+    private TextInputLayout sconfirmpassword;
     private Button sbtn;
     private Toolbar toolbar;
 
@@ -57,21 +58,34 @@ public class SignupActivity extends AppCompatActivity {
         sname=(TextInputLayout)findViewById(R.id.signup_name);
         semail=(TextInputLayout)findViewById(R.id.signup_email);
         spassword=(TextInputLayout)findViewById(R.id.signup_password);
+        sconfirmpassword=(TextInputLayout)findViewById(R.id.signup_confirm_password);
         sbtn=(Button) findViewById(R.id.signup_btn);
 
+        Toast.makeText(SignupActivity.this,String.valueOf(spassword.getDefaultHintTextColor()),Toast.LENGTH_SHORT).show();
         sbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!sname.getEditText().getText().toString().isEmpty() && !semail.getEditText().getText().toString().isEmpty() && !spassword.getEditText().getText().toString().isEmpty()) {
-                    String name = sname.getEditText().getText().toString();
-                    String email = semail.getEditText().getText().toString();
-                    String password = spassword.getEditText().getText().toString();
-                    mprogress.setTitle("Registering New User");
-                    mprogress.setMessage("Kindly wait");
-                    mprogress.setCanceledOnTouchOutside(false);
-                    mprogress.show();
-                    if (name != "" && email != "" && password !="")
-                        registerNewUser(name, email, password);
+                    if(spassword.getEditText().getText().toString().equals(sconfirmpassword.getEditText().getText().toString())) {
+                        String name = sname.getEditText().getText().toString();
+                        String email = semail.getEditText().getText().toString();
+                        String password = spassword.getEditText().getText().toString();
+                        mprogress.setTitle("Registering New User");
+                        mprogress.setMessage("Kindly wait");
+                        mprogress.setCanceledOnTouchOutside(false);
+                        mprogress.show();
+                        if (name != "" && email != "" && password != "")
+                            registerNewUser(name, email, password);
+                    }
+                    else{
+                        final Snackbar snack = Snackbar.make(signup_page, "Password not matching", 3000).setAction("CLOSE", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        }).setActionTextColor(Color.GREEN);
+                        snack.show();
+                    }
                 }
                 else {
                     //Toast.makeText(SignupActivity.this, "Wrong credentials", Toast.LENGTH_SHORT).show();
