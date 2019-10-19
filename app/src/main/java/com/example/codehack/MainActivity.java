@@ -4,6 +4,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.DialogInterface;
@@ -11,6 +14,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,10 +25,17 @@ import android.widget.TableLayout;
 import android.support.v4.app.*;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private TabLayout mTabLayout;
+    public static SwipeRefreshLayout swipeRefreshLayout;
+    private static final String URL="https://clist.by:443/api/v1/contest/?start__gte=2019-10-19&limit=10&username=shubham13&api_key=f65ef54dd252de3177a053b85efd7817eb1cd169";
     /*private ViewPager mainPager;
     private SectionsPagerAdapter msection;
     private TableLayout mtablayout;*/
@@ -54,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
 
         mTabLayout=(TabLayout)findViewById(R.id.main_tabs);
         mTabLayout.setupWithViewPager(mViewPager);
+
+        swipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.swipeLayout);
         //getSupportActionBar().setDisplayHomeAsUpEnabled();
         /*mainPager=(ViewPager)findViewById(R.id.mainView);
         msection=new SectionsPagerAdapter(getSupportFragmentManager());
@@ -61,27 +77,6 @@ public class MainActivity extends AppCompatActivity {
 
         mtablayout=(TableLayout)findViewById(R.id.main_tabs);*/
 
-        backbtn=(Button)findViewById(R.id.back);
-        backbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //FirebaseAuth.getInstance().signOut();
-                //sendToStart();
-                final Snackbar snack=Snackbar.make(mainpage,"Want to logout ?",3000).setAction("CANCEL", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                    }
-                }).setActionTextColor(Color.GREEN).setAction("YES", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        mAuth.signOut();
-                        sendToStart();
-                    }
-                }).setActionTextColor(Color.GREEN);
-                snack.show();
-            }
-        });
     }
     public void sendToStart(){
         Intent newIntent=new Intent(MainActivity.this,LoginActivity.class);

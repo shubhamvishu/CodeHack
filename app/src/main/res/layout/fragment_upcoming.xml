@@ -3,25 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="623dp"
-    android:background="@drawable/ic_bglogin2"
+    android:background="#bbb"
     tools:context=".UpcomingFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/contestList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="101dp"
-            android:layout_marginLeft="105dp"
-            android:layout_marginTop="251dp"
-            android:text="Upcoming Events"
-            android:textColor="#000"
-            android:textSize="28sp"
-            android:textStyle="bold" />
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
     </RelativeLayout>
 
 </FrameLayout>
