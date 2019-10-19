@@ -46,27 +46,16 @@
             app:tabTextColor="#fff" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeLayout"
-        android:layout_width="412dp"
-        android:layout_height="625dp"
-        android:layout_marginTop="67dp"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/main_tabPager"
+        android:layout_width="fill_parent"
+        android:layout_height="623dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appbar">
+        app:layout_constraintTop_toBottomOf="@+id/appbar">
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/main_tabPager"
-            android:layout_width="414dp"
-            android:layout_height="623dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appbar">
-
-        </androidx.viewpager.widget.ViewPager>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </androidx.viewpager.widget.ViewPager>
 
 
     <com.github.clans.fab.FloatingActionMenu

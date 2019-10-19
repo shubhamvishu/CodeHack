@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TableLayout;
 
 import android.support.v4.app.*;
@@ -69,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout=(TabLayout)findViewById(R.id.main_tabs);
         mTabLayout.setupWithViewPager(mViewPager);
 
-        swipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.swipeLayout);
         //getSupportActionBar().setDisplayHomeAsUpEnabled();
         /*mainPager=(ViewPager)findViewById(R.id.mainView);
         msection=new SectionsPagerAdapter(getSupportFragmentManager());

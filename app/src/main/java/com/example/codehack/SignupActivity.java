@@ -60,8 +60,6 @@ public class SignupActivity extends AppCompatActivity {
         spassword=(TextInputLayout)findViewById(R.id.signup_password);
         sconfirmpassword=(TextInputLayout)findViewById(R.id.signup_confirm_password);
         sbtn=(Button) findViewById(R.id.signup_btn);
-
-        Toast.makeText(SignupActivity.this,String.valueOf(spassword.getDefaultHintTextColor()),Toast.LENGTH_SHORT).show();
         sbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

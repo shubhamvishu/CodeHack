@@ -12,6 +12,8 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +32,7 @@ import com.google.gson.GsonBuilder;
 public class UpcomingFragment extends Fragment {
 
     TextView txtv;
+    ImageButton favourite;
     static RecyclerView contestList=null;
     static View myView;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -45,7 +48,7 @@ public class UpcomingFragment extends Fragment {
         //TextView t=container.findViewById(R.id.textv);
         //t.setText("Hehehe");
         View v=inflater.inflate(R.layout.fragment_upcoming,container,false);
-        myView=v;
+        swipeRefreshLayout=v.findViewById(R.id.swipeLayoutUpcoming);
         final LayoutInflater tempinflater=inflater;
         contestList=v.findViewById(R.id.contestList);
         contestList.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -59,6 +62,7 @@ public class UpcomingFragment extends Fragment {
                 //Toast.makeText(MainActivity.this,"yoyo",Toast.LENGTH_SHORT).show();
                 Contest contest=gson.fromJson(response,Contest.class);
                 contestList.setAdapter(new ContestAdapter(contest));
+                //Toast.makeText(getContext(),"hehehehe1111",Toast.LENGTH_SHORT).show();
                 //Toast.makeText(MainActivity.this,"hehe",Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
@@ -67,44 +71,45 @@ public class UpcomingFragment extends Fragment {
 
             }
         });
-        RequestQueue queue= Volley.newRequestQueue(getContext());
+        final RequestQueue queue= Volley.newRequestQueue(getContext());
         queue.add(request);
-
-        swipeRefreshLayout=MainActivity.swipeRefreshLayout;
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                View v=tempinflater.inflate(R.layout.fragment_upcoming,container,false);
-                myView=v;
-                contestList=v.findViewById(R.id.contestList);
-                contestList.setLayoutManager(new LinearLayoutManager(getContext()));
-                final String requestResult;
-                StringRequest request=new StringRequest(URL, new Response.Listener<String>() {
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                // your code here ...
+                swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
-                    public void onResponse(String response) {
-                        GsonBuilder gsonBuilder=new GsonBuilder();
-                        Gson gson=gsonBuilder.create();
-                        int a=57;
-                        //Toast.makeText(MainActivity.this,"yoyo",Toast.LENGTH_SHORT).show();
-                        Contest contest=gson.fromJson(response,Contest.class);
-                        contestList.setAdapter(new ContestAdapter(contest));
-                        Toast.makeText(getContext(),"hehehehe",Toast.LENGTH_SHORT).show();
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
+                    public void onRefresh() {
+                        contestList.setLayoutManager(new LinearLayoutManager(getContext()));
+                        final String requestResult;
+                        StringRequest request=new StringRequest(URL, new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                GsonBuilder gsonBuilder=new GsonBuilder();
+                                Gson gson=gsonBuilder.create();
+                                //Toast.makeText(MainActivity.this,"yoyo",Toast.LENGTH_SHORT).show();
+                                Contest contest=gson.fromJson(response,Contest.class);
+                                contestList.setAdapter(new ContestAdapter(contest));
+                                //Toast.makeText(getContext(),"hehehehe22222",Toast.LENGTH_SHORT).show();
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
 
+                            }
+                        });
+                        //queue.add(request);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                swipeRefreshLayout.setRefreshing(false);
+                            }
+                        },4000);
                     }
                 });
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
-                },4000);
             }
         });
-       // contestList.setAdapter(new ContestAdapter(contest));
+        t.start();
+        Toast.makeText(getContext(),"uuuuuuu",Toast.LENGTH_SHORT).show();
         return v;
     }
 

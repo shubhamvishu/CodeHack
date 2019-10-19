@@ -13,15 +13,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".AboutusActivity"
-            android:parentActivityName=".SignupActivity"></activity>
+            android:parentActivityName=".SignupActivity"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".SettingsActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".SignupActivity"
-            android:parentActivityName=".LoginActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity">
+            android:parentActivityName=".LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
