@@ -19,16 +19,17 @@
             android:layout_marginTop="175dp"
             android:src="@drawable/goal" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="110dp"
-            android:layout_marginTop="399dp"
-            android:text="Upcoming Events"
-            android:textSize="24sp" />
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="110dp"
+        android:layout_marginTop="399dp"
+        android:text="Upcoming Events"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeLayoutUpcoming"

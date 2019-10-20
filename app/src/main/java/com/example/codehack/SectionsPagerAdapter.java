@@ -30,8 +30,8 @@ class SectionsPagerAdapter extends FragmentPagerAdapter {
     }
     public CharSequence getPageTitle(int position){
         switch (position){
-            case 0:return "UPCOMING";
-            case 1:return "REMINDERS";
+            case 0:return "Upcoming";
+            case 1:return "Reminders";
             default:return null;
         }
     }

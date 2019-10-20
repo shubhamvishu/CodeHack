@@ -2,6 +2,7 @@ package com.example.codehack;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -31,6 +33,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,7 +52,10 @@ public class MainActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private TabLayout mTabLayout;
     public static SwipeRefreshLayout swipeRefreshLayout;
-    private static final String URL="https://clist.by:443/api/v1/contest/?start__gte=2019-10-19&limit=10&username=shubham13&api_key=f65ef54dd252de3177a053b85efd7817eb1cd169";
+    private FloatingActionMenu fabMenu;
+    private FloatingActionButton fab_scroll,fab_speak,fab_edit;
+    private RecyclerView mRecyclerView;
+    private static final String URL="https://clist.by:443/api/v1/contest/?start__gte=2019-10-20&order_by=start&username=shubham13&api_key=f65ef54dd252de3177a053b85efd7817eb1cd169";
     /*private ViewPager mainPager;
     private SectionsPagerAdapter msection;
     private TableLayout mtablayout;*/
@@ -69,7 +76,23 @@ public class MainActivity extends AppCompatActivity {
 
         mTabLayout=(TabLayout)findViewById(R.id.main_tabs);
         mTabLayout.setupWithViewPager(mViewPager);
+        mTabLayout.getTabAt(0).setIcon(R.drawable.ic_event_white_24dp);
+        mTabLayout.getTabAt(1).setIcon(R.drawable.ic_alarm_white_24dp);
 
+        mRecyclerView=(RecyclerView)findViewById(R.id.contestList);
+
+        fabMenu=(FloatingActionMenu)findViewById(R.id.fabMenu);
+        fab_scroll=(FloatingActionButton)findViewById(R.id.fabScrollTop);
+        fab_speak=(FloatingActionButton)findViewById(R.id.fabSpeak);
+        //fab_edit=(FloatingActionButton)findViewById(R.id.fabEdit);
+        fab_scroll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               LinearLayoutManager layoutManager = (LinearLayoutManager)UpcomingFragment.contestList.getLayoutManager();
+                if(layoutManager!=null)
+                layoutManager.scrollToPositionWithOffset(0,0);
+            }
+        });
         //getSupportActionBar().setDisplayHomeAsUpEnabled();
         /*mainPager=(ViewPager)findViewById(R.id.mainView);
         msection=new SectionsPagerAdapter(getSupportFragmentManager());
@@ -83,9 +106,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(newIntent);
         finish();
     }
+    @SuppressLint("RestrictedApi")
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_main,menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        if (menu instanceof MenuBuilder) {
+            MenuBuilder m = (MenuBuilder) menu;
+            m.setOptionalIconsVisible(true);
+        }
         return true;
     }
     @Override

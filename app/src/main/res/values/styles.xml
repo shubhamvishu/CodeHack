@@ -13,4 +13,7 @@
         <item name="android:background">@color/colorLight</item>
         <item name="android:textColor">@color/colorBlack </item>
     </style>
+    <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">true</item>
+    </style>
 </resources>

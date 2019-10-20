@@ -2,11 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:title="Settings"
-        android:id="@+id/settings_option"/>
+        android:id="@+id/settings_option"
+        android:icon="@drawable/ic_settings_black_24dp"/>
     <item android:title="About Us"
-        android:id="@+id/aboutus_option"/>
+        android:id="@+id/aboutus_option"
+        android:icon="@drawable/ic_info_outline_black_24dp"/>
     <item android:title="Logout"
-        android:id="@+id/logout_option"/>
+        android:id="@+id/logout_option"
+        android:icon="@drawable/ic_lock_black_24dp"/>
     <item android:title=""
         android:id="@+id/search_id"
         android:icon="@drawable/ic_search_black_24dp"

@@ -1,6 +1,9 @@
 package com.example.codehack;
 
 
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -25,6 +28,9 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,7 +42,7 @@ public class UpcomingFragment extends Fragment {
     static RecyclerView contestList=null;
     static View myView;
     SwipeRefreshLayout swipeRefreshLayout;
-    private static final String URL="https://clist.by:443/api/v1/contest/?start__gte=2019-10-19&username=shubham13&api_key=f65ef54dd252de3177a053b85efd7817eb1cd169";
+    private static final String URL="https://clist.by:443/api/v1/contest/?start__gte=2019-10-20&order_by=start&username=shubham13&api_key=f65ef54dd252de3177a053b85efd7817eb1cd169";
     public UpcomingFragment() {
         // Required empty public constructor
     }
@@ -47,32 +53,12 @@ public class UpcomingFragment extends Fragment {
         // Inflate the layout for this fragment
         //TextView t=container.findViewById(R.id.textv);
         //t.setText("Hehehe");
+
         View v=inflater.inflate(R.layout.fragment_upcoming,container,false);
         swipeRefreshLayout=v.findViewById(R.id.swipeLayoutUpcoming);
-        final LayoutInflater tempinflater=inflater;
         contestList=v.findViewById(R.id.contestList);
         contestList.setLayoutManager(new LinearLayoutManager(getContext()));
-        final String requestResult;
-        StringRequest request=new StringRequest(URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                GsonBuilder gsonBuilder=new GsonBuilder();
-                Gson gson=gsonBuilder.create();
-                int a=57;
-                //Toast.makeText(MainActivity.this,"yoyo",Toast.LENGTH_SHORT).show();
-                Contest contest=gson.fromJson(response,Contest.class);
-                contestList.setAdapter(new ContestAdapter(contest));
-                //Toast.makeText(getContext(),"hehehehe1111",Toast.LENGTH_SHORT).show();
-                //Toast.makeText(MainActivity.this,"hehe",Toast.LENGTH_SHORT).show();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
         final RequestQueue queue= Volley.newRequestQueue(getContext());
-        queue.add(request);
         Thread t = new Thread(new Runnable() {
             public void run() {
                 // your code here ...
@@ -88,16 +74,21 @@ public class UpcomingFragment extends Fragment {
                                 Gson gson=gsonBuilder.create();
                                 //Toast.makeText(MainActivity.this,"yoyo",Toast.LENGTH_SHORT).show();
                                 Contest contest=gson.fromJson(response,Contest.class);
-                                contestList.setAdapter(new ContestAdapter(contest));
+                                contestList.setAdapter(new ContestAdapter(getContext(),contest));
+                                storeAsLocalData(getContext(),contest);
+                                Toast.makeText(getContext(),"Refreshing",Toast.LENGTH_SHORT).show();
                                 //Toast.makeText(getContext(),"hehehehe22222",Toast.LENGTH_SHORT).show();
                             }
                         }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-
+                                Contest contest=getLocalSavedContestData();
+                                if(contest!=null)
+                                contestList.setAdapter(new ContestAdapter(getContext(),contest));
+                                Toast.makeText(getContext(),"Local data",Toast.LENGTH_SHORT).show();
                             }
                         });
-                        //queue.add(request);
+                        queue.add(request);
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -109,8 +100,74 @@ public class UpcomingFragment extends Fragment {
             }
         });
         t.start();
-        Toast.makeText(getContext(),"uuuuuuu",Toast.LENGTH_SHORT).show();
+        StringRequest request=new StringRequest(URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                GsonBuilder gsonBuilder=new GsonBuilder();
+                Gson gson=gsonBuilder.create();
+                int a=57;
+                //Toast.makeText(MainActivity.this,"yoyo",Toast.LENGTH_SHORT).show();
+                Contest contest=gson.fromJson(response,Contest.class);
+                contestList.setAdapter(new ContestAdapter(getContext(),contest));
+                storeAsLocalData(getContext(),contest);
+                //Toast.makeText(getContext(),"hehehehe1111",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this,"hehe",Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Contest contest=getLocalSavedContestData();
+                if(contest!=null)
+                contestList.setAdapter(new ContestAdapter(getContext(),contest));
+                Toast.makeText(getContext(),"",Toast.LENGTH_SHORT).show();
+            }
+        });
+        queue.add(request);
         return v;
+    }
+
+    private void storeAsLocalData(Context context,Contest contest) {
+
+        MyDatabaseHelper helper=new MyDatabaseHelper(context);
+        SQLiteDatabase sqLiteDatabase = helper.getReadableDatabase();
+        SQLiteDatabase db=helper.getWritableDatabase();
+        db.delete("CONTEST",null,null);
+        List<Object> listObjects=contest.getObjects();
+        for(Object o:listObjects){
+            helper.insertData(o.getEvent(),o.getResource().getName(),o.getStart(),db);
+        }
+    }
+
+    private Contest getLocalSavedContestData() {
+
+        Contest contest = new Contest();
+        Cursor cursor=null;
+        try {
+            MyDatabaseHelper helper = new MyDatabaseHelper(getContext());
+            SQLiteDatabase sqLiteDatabase = helper.getReadableDatabase();
+            cursor = sqLiteDatabase.rawQuery("SELECT EVENT,ABOUT,START FROM CONTEST", new String[]{});
+            final StringBuilder builder=new StringBuilder("");
+            List<Object> objectList=new ArrayList<Object>();
+            if(cursor!=null) cursor.moveToFirst();
+            do{
+                String eventName=cursor.getString(0);
+                String eventAbout=cursor.getString(1);
+                String eventStartDateTme=cursor.getString(2);
+                Object newObject=new Object();
+                newObject.setEvent(eventName);
+                Resource resource=new Resource();
+                resource.setName(eventAbout);
+                newObject.setResource(resource);
+                newObject.setStart(eventStartDateTme);
+                objectList.add(newObject);
+                builder.append(eventName+" "+eventAbout+"\n");
+            }while(cursor.moveToNext());
+            Toast.makeText(getContext(),"2222",Toast.LENGTH_SHORT).show();
+            contest.setObjects(objectList);
+        }catch (Exception ex){
+            Toast.makeText(getContext(),"Error in retriving",Toast.LENGTH_SHORT).show();
+        }
+        return contest;
     }
 
 }

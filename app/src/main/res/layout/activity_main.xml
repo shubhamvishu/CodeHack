@@ -41,9 +41,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.048"
-            app:tabIndicatorColor="#FCE601"
+            app:tabIconTint="@color/colorLight"
+            app:tabIndicatorColor="#8AFA41"
+            app:tabIndicatorHeight="3dp"
+            app:tabInlineLabel="true"
             app:tabRippleColor="#838BA7"
-            app:tabTextColor="#fff" />
+            app:tabTextAppearance="@style/MyCustomTextAppearance"
+            app:tabTextColor="#E7F2FC" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
@@ -59,7 +63,7 @@
 
 
     <com.github.clans.fab.FloatingActionMenu
-        android:id="@+id/floatingActionMenu"
+        android:id="@+id/fabMenu"
         android:layout_width="wrap_content"
         android:layout_height="241dp"
         android:layout_alignParentEnd="true"
@@ -84,37 +88,27 @@
         app:menu_showShadow="true">
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/floatingButton1"
+            android:id="@+id/fabScrollTop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_photo_camera_white_24dp"
-            app:fab_colorNormal="@color/colorMain"
+            android:src="@drawable/ic_arrow_upward_white_24dp"
+            app:fab_colorNormal="@color/colorDarkBlue"
             app:fab_colorPressed="@color/colorDark"
             app:fab_colorRipple="@color/colorDark"
-            app:fab_label="Photo"
-            app:fab_size="mini" />
+            app:fab_label="Top"
+            app:fab_size="normal" />
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/floatingButton2"
+            android:id="@+id/fabSpeak"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_mic_black_24dp"
+            android:src="@drawable/ic_add_alarm_white_30dp"
             app:fab_colorNormal="@color/colorMain"
             app:fab_colorPressed="@color/colorDark"
             app:fab_colorRipple="@color/colorDark"
-            app:fab_label="Record"
-            app:fab_size="mini" />
+            app:fab_label="Add Alarm"
+            app:fab_size="normal" />
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/floatingButton3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_mode_edit_black_24dp"
-            app:fab_colorNormal="@color/colorMain"
-            app:fab_colorPressed="@color/colorDark"
-            app:fab_colorRipple="@color/colorDark"
-            app:fab_label="Edit"
-            app:fab_size="mini" />
     </com.github.clans.fab.FloatingActionMenu>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

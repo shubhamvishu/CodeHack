@@ -15,37 +15,47 @@
         android:background="#bbb"
         android:outlineAmbientShadowColor="@color/colorBlack">
 
+        <TextView
+            android:id="@+id/contestDate"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="225dp"
+            android:layout_marginTop="42dp"
+            android:maxLines="1"
+            android:padding="3dp" />
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/contestListImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center_vertical"
-            android:padding="20dp"
+            android:padding="13dp"
             android:src="@drawable/me3" />
 
         <TextView
             android:id="@+id/contestListText"
-            android:layout_width="200dp"
-            android:layout_height="30dp"
+            android:layout_width="235dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:layout_marginLeft="100dp"
             android:layout_marginTop="17dp"
             android:layout_weight="1"
+            android:maxLines="1"
             android:padding="3dp"
             android:paddingLeft="16dp"
-            android:text="Shubham chaudhary"
             android:textColor="#555"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/contestTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="10dp"
-            android:padding="5dp"
-            android:paddingLeft="16dp"
+            android:layout_marginLeft="335dp"
+            android:layout_marginTop="17dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:text="9 AM - 10 AM"
             android:textSize="12sp" />
 
@@ -62,19 +72,21 @@
 
         <TextView
             android:id="@+id/aboutcompany"
-            android:layout_width="wrap_content"
+            android:layout_width="125dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="100dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="42dp"
+            android:maxLines="1"
             android:padding="3dp"
-            android:textSize="12sp" />
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/favorite_star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="bottom|center_vertical"
             android:layout_marginLeft="360dp"
+            android:layout_marginBottom="15dp"
             android:background="#00ffffff"
             android:src="@drawable/star_button_normal" />
     </androidx.cardview.widget.CardView>
