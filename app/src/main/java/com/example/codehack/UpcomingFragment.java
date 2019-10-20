@@ -4,8 +4,10 @@ package com.example.codehack;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +30,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,9 +45,11 @@ public class UpcomingFragment extends Fragment {
     static RecyclerView contestList=null;
     static View myView;
     SwipeRefreshLayout swipeRefreshLayout;
-    private static final String URL="https://clist.by:443/api/v1/contest/?start__gte=2019-10-20&order_by=start&username=shubham13&api_key=f65ef54dd252de3177a053b85efd7817eb1cd169";
+    private static String URL="https://clist.by:443/api/v1/contest/?start__gte=2019-10-20&limit=100&order_by=start&username=shubham13&api_key=f65ef54dd252de3177a053b85efd7817eb1cd169";
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public UpcomingFragment() {
         // Required empty public constructor
+        //URL="https://clist.by:443/api/v1/contest/?start__gte="+ LocalDate.now() +"&order_by=start&username=shubham13&api_key=f65ef54dd252de3177a053b85efd7817eb1cd169";
     }
 
     @Override
@@ -59,9 +64,6 @@ public class UpcomingFragment extends Fragment {
         contestList=v.findViewById(R.id.contestList);
         contestList.setLayoutManager(new LinearLayoutManager(getContext()));
         final RequestQueue queue= Volley.newRequestQueue(getContext());
-        Thread t = new Thread(new Runnable() {
-            public void run() {
-                // your code here ...
                 swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
@@ -97,15 +99,11 @@ public class UpcomingFragment extends Fragment {
                         },4000);
                     }
                 });
-            }
-        });
-        t.start();
         StringRequest request=new StringRequest(URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 GsonBuilder gsonBuilder=new GsonBuilder();
                 Gson gson=gsonBuilder.create();
-                int a=57;
                 //Toast.makeText(MainActivity.this,"yoyo",Toast.LENGTH_SHORT).show();
                 Contest contest=gson.fromJson(response,Contest.class);
                 contestList.setAdapter(new ContestAdapter(getContext(),contest));
@@ -119,7 +117,6 @@ public class UpcomingFragment extends Fragment {
                 Contest contest=getLocalSavedContestData();
                 if(contest!=null)
                 contestList.setAdapter(new ContestAdapter(getContext(),contest));
-                Toast.makeText(getContext(),"",Toast.LENGTH_SHORT).show();
             }
         });
         queue.add(request);
@@ -134,7 +131,7 @@ public class UpcomingFragment extends Fragment {
         db.delete("CONTEST",null,null);
         List<Object> listObjects=contest.getObjects();
         for(Object o:listObjects){
-            helper.insertData(o.getEvent(),o.getResource().getName(),o.getStart(),db);
+            helper.insertData(o.getEvent(),o.getResource().getName(),o.getStart(),o.getEnd(),o.getDuration(),db);
         }
     }
 
@@ -145,7 +142,7 @@ public class UpcomingFragment extends Fragment {
         try {
             MyDatabaseHelper helper = new MyDatabaseHelper(getContext());
             SQLiteDatabase sqLiteDatabase = helper.getReadableDatabase();
-            cursor = sqLiteDatabase.rawQuery("SELECT EVENT,ABOUT,START FROM CONTEST", new String[]{});
+            cursor = sqLiteDatabase.rawQuery("SELECT EVENT,ABOUT,START,ENDD,DURATION FROM CONTEST", new String[]{});
             final StringBuilder builder=new StringBuilder("");
             List<Object> objectList=new ArrayList<Object>();
             if(cursor!=null) cursor.moveToFirst();
@@ -153,16 +150,19 @@ public class UpcomingFragment extends Fragment {
                 String eventName=cursor.getString(0);
                 String eventAbout=cursor.getString(1);
                 String eventStartDateTme=cursor.getString(2);
+                String eventEndDateTme=cursor.getString(3);
+                int eventDuration=cursor.getInt(4);
                 Object newObject=new Object();
                 newObject.setEvent(eventName);
                 Resource resource=new Resource();
                 resource.setName(eventAbout);
                 newObject.setResource(resource);
                 newObject.setStart(eventStartDateTme);
+                newObject.setEnd(eventEndDateTme);
+                newObject.setDuration(eventDuration);
                 objectList.add(newObject);
                 builder.append(eventName+" "+eventAbout+"\n");
             }while(cursor.moveToNext());
-            Toast.makeText(getContext(),"2222",Toast.LENGTH_SHORT).show();
             contest.setObjects(objectList);
         }catch (Exception ex){
             Toast.makeText(getContext(),"Error in retriving",Toast.LENGTH_SHORT).show();

@@ -1,6 +1,7 @@
 package com.example.codehack;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +62,8 @@ public class ContestAdapter extends RecyclerView.Adapter<ContestAdapter.ContestV
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ContestPageActivity.contestObject=contestObject;
+                context.startActivity(new Intent(context,ContestPageActivity.class));
                 Toast.makeText(context,contestObject.getStart(),Toast.LENGTH_SHORT).show();
             }
         });
@@ -98,6 +101,7 @@ public class ContestAdapter extends RecyclerView.Adapter<ContestAdapter.ContestV
             link="https://yt3.ggpht.com/a/AGF-l7-BBIcC888A2qYc3rB44rST01IEYDG3uzbU_A=s900-c-k-c0xffffffff-no-rj-mo";
         else
             link="https://ui-avatars.com/api/?background="+ randomColors[random.nextInt(10)]+"&color=fff&name="+contestName;
+        ContestPageActivity.link=link;
         Glide.with(holder.returnHolderView()).load(link).into(holder.imgIcon);
 
     }
