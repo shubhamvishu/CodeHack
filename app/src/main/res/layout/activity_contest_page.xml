@@ -7,15 +7,26 @@
     android:background="@drawable/contestpage"
     tools:context=".ContestPageActivity">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/contestpage_image"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
+    <ImageView
+        android:id="@+id/contestpage_image2"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="248dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="53dp"
+        android:src="@drawable/goal" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/contestpage_image"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="311dp"
+        android:layout_marginTop="107dp"
         android:src="@drawable/goal" />
 
     <androidx.cardview.widget.CardView
@@ -36,31 +47,31 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="215dp"
-            android:fontFamily="@font/lato_bold"
+            android:fontFamily="@font/rubik_bold"
             android:padding="5dp"
-            android:text="END"
+            android:text="End"
             android:textColor="#222"
             android:textSize="16dp"
             android:textStyle="bold" />
 
         <TextView
-            android:layout_width="60dp"
+            android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="170dp"
-            android:fontFamily="@font/lato_bold"
+            android:fontFamily="@font/rubik_bold"
             android:padding="5dp"
-            android:text="START"
+            android:text="Start"
             android:textColor="#222"
             android:textSize="16dp"
             android:textStyle="bold" />
 
         <TextView
-            android:layout_width="75dp"
+            android:layout_width="85dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="265dp"
-            android:fontFamily="@font/lato_bold"
+            android:fontFamily="@font/rubik_bold"
             android:padding="5dp"
             android:text="Duration"
             android:textColor="#222"
@@ -69,15 +80,18 @@
 
         <TextView
             android:id="@+id/contestpage_site_name"
-            android:layout_width="296dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="110dp"
-            android:background="#eee"
+            android:background="#9C27B0"
             android:maxLines="1"
             android:padding="5dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
             android:textAlignment="center"
-            android:textColor="#777"
+            android:textColor="#eee"
             android:textSize="18dp"
             android:textStyle="bold" />
 
@@ -117,30 +131,33 @@
             android:id="@+id/contestpage_duration"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
+            android:layout_marginLeft="110dp"
             android:layout_marginTop="265dp"
+            android:fontFamily="@font/lato_bold"
             android:padding="5dp"
-            android:textColor="#888"
+            android:textColor="#aaa"
             android:textSize="17sp" />
 
         <TextView
             android:id="@+id/contestpage_start"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
+            android:layout_marginLeft="110dp"
             android:layout_marginTop="170dp"
+            android:fontFamily="@font/lato_bold"
             android:padding="5dp"
-            android:textColor="#888"
+            android:textColor="#aaa"
             android:textSize="17sp" />
 
         <TextView
             android:id="@+id/contestpage_end"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
+            android:layout_marginLeft="110dp"
             android:layout_marginTop="215dp"
+            android:fontFamily="@font/lato_bold"
             android:padding="5dp"
-            android:textColor="#888"
+            android:textColor="#aaa"
             android:textSize="17sp" />
     </androidx.cardview.widget.CardView>
 

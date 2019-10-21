@@ -45,11 +45,11 @@ public class UpcomingFragment extends Fragment {
     static RecyclerView contestList=null;
     static View myView;
     SwipeRefreshLayout swipeRefreshLayout;
-    private static String URL="https://clist.by:443/api/v1/contest/?start__gte=2019-10-20&limit=100&order_by=start&username=shubham13&api_key=f65ef54dd252de3177a053b85efd7817eb1cd169";
+    private static String URL="https://clist.by:443/api/v1/contest/?end__gte=2019-10-21T00:00:00&limit=200&order_by=end&duration__lt=10%20days&username=shubham13&api_key=f65ef54dd252de3177a053b85efd7817eb1cd169";
     @RequiresApi(api = Build.VERSION_CODES.O)
     public UpcomingFragment() {
         // Required empty public constructor
-        //URL="https://clist.by:443/api/v1/contest/?start__gte="+ LocalDate.now() +"&order_by=start&username=shubham13&api_key=f65ef54dd252de3177a053b85efd7817eb1cd169";
+        URL="https://clist.by:443/api/v1/contest/?end__gte="+LocalDate.now()+"T00:00:00&limit=200&order_by=end&duration__lt=100%20days&username=shubham13&api_key=f65ef54dd252de3177a053b85efd7817eb1cd169";
     }
 
     @Override

@@ -19,6 +19,7 @@ public class ContestPageActivity extends AppCompatActivity {
 
     public static Object contestObject;
     public static String link="";
+    public static int randomColor=0;
     private Toolbar toolbar;
     private TextView sitename,contestname,start,end,duration;
     private ImageView contestimage;
@@ -48,7 +49,8 @@ public class ContestPageActivity extends AppCompatActivity {
             start.setText(contestObject.getStart().substring(0, contestObject.getStart().indexOf("T")) + " at " + contestObject.getStart().substring(contestObject.getStart().indexOf("T") + 1));
             end.setText(contestObject.getEnd().substring(0, contestObject.getEnd().indexOf("T")) + " at "+ contestObject.getEnd().substring(contestObject.getEnd().indexOf("T") + 1));
             duration.setText(contestObject.getDuration() / 3600 + " hours");
-            Glide.with(contestimage).load(link).into(contestimage);
+            //link="https://ui-avatars.com/api/?background="+randomColor+"&color=fff&name="+contestObject.getEvent();
+            Glide.with(contestimage).load(ContestAdapter.getImageLink(contestObject.getResource().getName())).into(contestimage);
         }
         contestbtn.setOnClickListener(new View.OnClickListener() {
             @Override
