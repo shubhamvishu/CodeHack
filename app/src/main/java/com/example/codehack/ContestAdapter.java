@@ -60,6 +60,7 @@ public class ContestAdapter extends RecyclerView.Adapter<ContestAdapter.ContestV
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull final ContestViewHolder holder, int position) {
+
         final Object contestObject=contest.getObjects().get(position);
         holder.textView.setText(contestObject.getEvent());
         holder.textView.setBackgroundColor(0xFFFFFFFF);
@@ -67,9 +68,9 @@ public class ContestAdapter extends RecyclerView.Adapter<ContestAdapter.ContestV
         holder.about.setText(contestObject.getResource().getName());
         holder.date.setText(contestObject.getStart().substring(0,contestObject.getStart().indexOf("T")));
         holder.timings.setText(contestObject.getStart().substring(contestObject.getStart().indexOf("T")+2));
-        Log.d("MSG","Check current"+LocalDate.now().toString()+" "+contestObject.getStart().substring(0,contestObject.getStart().indexOf("T"))+String.valueOf(LocalDate.now().toString()==contestObject.getStart().substring(0,contestObject.getStart().indexOf("T"))));
+        Log.d("BLUISH",contestObject.getEvent()+" "+LocalDate.now().toString()+" "+contestObject.getStart().substring(0,contestObject.getStart().indexOf("T"))+" "+compareDates(LocalDate.now().toString(),contestObject.getStart().substring(0,contestObject.getStart().indexOf("T"))));
         if(compareDates(LocalDate.now().toString(),contestObject.getStart().substring(0,contestObject.getStart().indexOf("T")))) {
-            Log.d("MSG","Check current"+" I");
+            Log.d("BLUISH DOT",contestObject.getEvent()+" "+LocalDate.now().toString()+" "+contestObject.getStart().substring(0,contestObject.getStart().indexOf("T")));
             holder.btn.setBackground(context.getResources().getDrawable(R.drawable.btn_black));
             holder.circleIcon.setImageResource(R.drawable.light_blue_box);
         }
@@ -107,6 +108,15 @@ public class ContestAdapter extends RecyclerView.Adapter<ContestAdapter.ContestV
     @Override
     public int getItemCount() {
         return contest.getObjects().size();
+    }
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
     public class ContestViewHolder extends RecyclerView.ViewHolder{
