@@ -99,7 +99,7 @@ public class ContestAdapter extends RecyclerView.Adapter<ContestAdapter.ContestV
         if(!bool){
             //holder.view.setVisibility(View.GONE);
             //holder.itemView.setVisibility(View.GONE);
-            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
+            //holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
         }
         Glide.with(holder.returnHolderView()).load(getImageLink(contestName)).into(holder.imgIcon);
 

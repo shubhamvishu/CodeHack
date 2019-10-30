@@ -58,12 +58,14 @@ public class UpcomingFragment extends Fragment {
         // Inflate the layout for this fragment
         //TextView t=container.findViewById(R.id.textv);
         //t.setText("Hehehe");
-
-        View v=inflater.inflate(R.layout.fragment_upcoming,container,false);
-        swipeRefreshLayout=v.findViewById(R.id.swipeLayoutUpcoming);
-        contestList=v.findViewById(R.id.contestList);
-        contestList.setLayoutManager(new LinearLayoutManager(getContext()));
-        final RequestQueue queue= Volley.newRequestQueue(getContext());
+        final View v=inflater.inflate(R.layout.fragment_upcoming,container,false);
+        Runnable task1 = new Runnable(){
+            @Override
+            public void run(){
+                swipeRefreshLayout=v.findViewById(R.id.swipeLayoutUpcoming);
+                contestList=v.findViewById(R.id.contestList);
+                contestList.setLayoutManager(new LinearLayoutManager(getContext()));
+                final RequestQueue queue= Volley.newRequestQueue(getContext());
                 swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
@@ -86,7 +88,7 @@ public class UpcomingFragment extends Fragment {
                             public void onErrorResponse(VolleyError error) {
                                 Contest contest=getLocalSavedContestData();
                                 if(contest!=null)
-                                contestList.setAdapter(new ContestAdapter(getContext(),contest));
+                                    contestList.setAdapter(new ContestAdapter(getContext(),contest));
                                 Toast.makeText(getContext(),"Local data",Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -99,74 +101,96 @@ public class UpcomingFragment extends Fragment {
                         },4000);
                     }
                 });
-        StringRequest request=new StringRequest(URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                GsonBuilder gsonBuilder=new GsonBuilder();
-                Gson gson=gsonBuilder.create();
-                //Toast.makeText(MainActivity.this,"yoyo",Toast.LENGTH_SHORT).show();
-                Contest contest=gson.fromJson(response,Contest.class);
-                contestList.setAdapter(new ContestAdapter(getContext(),contest));
-                storeAsLocalData(getContext(),contest);
-                //Toast.makeText(getContext(),"hehehehe1111",Toast.LENGTH_SHORT).show();
-                //Toast.makeText(MainActivity.this,"hehe",Toast.LENGTH_SHORT).show();
+                StringRequest request=new StringRequest(URL, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        GsonBuilder gsonBuilder=new GsonBuilder();
+                        Gson gson=gsonBuilder.create();
+                        //Toast.makeText(MainActivity.this,"yoyo",Toast.LENGTH_SHORT).show();
+                        Contest contest=gson.fromJson(response,Contest.class);
+                        contestList.setAdapter(new ContestAdapter(getContext(),contest));
+                        storeAsLocalData(getContext(),contest);
+                        //Toast.makeText(getContext(),"hehehehe1111",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this,"hehe",Toast.LENGTH_SHORT).show();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Contest contest=getLocalSavedContestData();
+                        if(contest!=null)
+                            contestList.setAdapter(new ContestAdapter(getContext(),contest));
+                    }
+                });
+                queue.add(request);
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Contest contest=getLocalSavedContestData();
-                if(contest!=null)
-                contestList.setAdapter(new ContestAdapter(getContext(),contest));
-            }
-        });
-        queue.add(request);
+        };
+        Thread thread1 = new Thread(task1);
+        thread1.start();
         return v;
     }
 
-    private void storeAsLocalData(Context context,Contest contest) {
+    private void storeAsLocalData(final Context context,final Contest contest) {
 
-        MyDatabaseHelper helper=new MyDatabaseHelper(context);
-        SQLiteDatabase sqLiteDatabase = helper.getReadableDatabase();
-        SQLiteDatabase db=helper.getWritableDatabase();
-        db.delete("CONTEST",null,null);
-        List<Object> listObjects=contest.getObjects();
-        for(Object o:listObjects){
-            helper.insertData(o.getEvent(),o.getResource().getName(),o.getStart(),o.getEnd(),o.getDuration(),db);
-        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    MyDatabaseHelper helper=new MyDatabaseHelper(context);
+                    SQLiteDatabase sqLiteDatabase = helper.getReadableDatabase();
+                    SQLiteDatabase db=helper.getWritableDatabase();
+                    db.delete("CONTEST",null,null);
+                    List<Object> listObjects=contest.getObjects();
+                    for(Object o:listObjects){
+                        helper.insertData(o.getEvent(),o.getResource().getName(),o.getStart(),o.getEnd(),o.getDuration(),db);
+                    }
+
+                }
+                catch (Exception e) {
+                    //print the error here
+                }
+            }
+        }).start();
     }
 
     private Contest getLocalSavedContestData() {
 
-        Contest contest = new Contest();
-        Cursor cursor=null;
-        try {
-            MyDatabaseHelper helper = new MyDatabaseHelper(getContext());
-            SQLiteDatabase sqLiteDatabase = helper.getReadableDatabase();
-            cursor = sqLiteDatabase.rawQuery("SELECT EVENT,ABOUT,START,ENDD,DURATION FROM CONTEST", new String[]{});
-            final StringBuilder builder=new StringBuilder("");
-            List<Object> objectList=new ArrayList<Object>();
-            if(cursor!=null) cursor.moveToFirst();
-            do{
-                String eventName=cursor.getString(0);
-                String eventAbout=cursor.getString(1);
-                String eventStartDateTme=cursor.getString(2);
-                String eventEndDateTme=cursor.getString(3);
-                int eventDuration=cursor.getInt(4);
-                Object newObject=new Object();
-                newObject.setEvent(eventName);
-                Resource resource=new Resource();
-                resource.setName(eventAbout);
-                newObject.setResource(resource);
-                newObject.setStart(eventStartDateTme);
-                newObject.setEnd(eventEndDateTme);
-                newObject.setDuration(eventDuration);
-                objectList.add(newObject);
-                builder.append(eventName+" "+eventAbout+"\n");
-            }while(cursor.moveToNext());
-            contest.setObjects(objectList);
-        }catch (Exception ex){
-            Toast.makeText(getContext(),"Error in retriving",Toast.LENGTH_SHORT).show();
-        }
+        final Contest contest = new Contest();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Cursor cursor=null;
+                    MyDatabaseHelper helper = new MyDatabaseHelper(getContext());
+                    SQLiteDatabase sqLiteDatabase = helper.getReadableDatabase();
+                    cursor = sqLiteDatabase.rawQuery("SELECT EVENT,ABOUT,START,ENDD,DURATION FROM CONTEST", new String[]{});
+                    final StringBuilder builder=new StringBuilder("");
+                    List<Object> objectList=new ArrayList<Object>();
+                    if(cursor!=null) cursor.moveToFirst();
+                    do{
+                        String eventName=cursor.getString(0);
+                        String eventAbout=cursor.getString(1);
+                        String eventStartDateTme=cursor.getString(2);
+                        String eventEndDateTme=cursor.getString(3);
+                        int eventDuration=cursor.getInt(4);
+                        Object newObject=new Object();
+                        newObject.setEvent(eventName);
+                        Resource resource=new Resource();
+                        resource.setName(eventAbout);
+                        newObject.setResource(resource);
+                        newObject.setStart(eventStartDateTme);
+                        newObject.setEnd(eventEndDateTme);
+                        newObject.setDuration(eventDuration);
+                        objectList.add(newObject);
+                        builder.append(eventName+" "+eventAbout+"\n");
+                    }while(cursor.moveToNext());
+                    contest.setObjects(objectList);
+                }catch (Exception ex){
+                    Toast.makeText(getContext(),"Error in retriving",Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).start();
+
+
         return contest;
     }
 
