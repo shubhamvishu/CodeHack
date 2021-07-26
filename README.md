@@ -22,5 +22,5 @@ Tools/Technologies Used : Java(android), Firebase, SQLite, etc.
 <img src="https://raw.githubusercontent.com/shubhamvishu/CodeHack/master/screenshots/IMG_3.png" alt="Main Screen" width="300"/>
 
 ### Sign Up screen
-<img src="https://raw.githubusercontent.com/shubhamvishu/CodeHack/master/screenshots/IMG_4.pngg" alt="Main Screen" width="300"/>
+<img src="https://raw.githubusercontent.com/shubhamvishu/CodeHack/master/screenshots/IMG_4.png" alt="Main Screen" width="300"/>
 
