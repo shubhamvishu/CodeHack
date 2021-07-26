@@ -2,7 +2,11 @@
 
 ### Android App to list current and upcoming coding contests.
 
-Tools/Technologies Used : Java(android), Firebase, SQLite, etc.
+Tools/Technologies Used : 
+  - Java(android)
+  - Firebase
+  - SQLite
+  - Figma
 
 ## Some screenshots :
 
