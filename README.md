@@ -7,20 +7,20 @@ Tools/Technologies Used : Java(android), Firebase, SQLite, etc.
 ## Some screenshots :
 
 ### Main screen
-![Main Screen](https://raw.githubusercontent.com/shubhamvishu/CodeHack/master/screenshots/IMG_6.png)
-
-![Main Screen](https://raw.githubusercontent.com/shubhamvishu/CodeHack/master/screenshots/IMG_7.png)
+<img src="https://raw.githubusercontent.com/shubhamvishu/CodeHack/master/screenshots/IMG_6.png" alt="Main Screen" width="300"/>
+<img src="https://raw.githubusercontent.com/shubhamvishu/CodeHack/master/screenshots/IMG_7.png" alt="Main Screen" width="300"/>
 
 ### Contest Page
 
-![Contest Page](https://raw.githubusercontent.com/shubhamvishu/CodeHack/master/screenshots/IMG_9.png)
+<img src="https://raw.githubusercontent.com/shubhamvishu/CodeHack/master/screenshots/IMG_9.png" alt="Main Screen" width="300"/>
 
 ### Login screen
-![Login screen](https://raw.githubusercontent.com/shubhamvishu/CodeHack/master/screenshots/IMG_1.png)
+
+<img src="https://raw.githubusercontent.com/shubhamvishu/CodeHack/master/screenshots/IMG_1.png" alt="Main Screen" width="300"/>
 
 ### Logging in
-![Logging in](https://raw.githubusercontent.com/shubhamvishu/CodeHack/master/screenshots/IMG_3.png)
+<img src="https://raw.githubusercontent.com/shubhamvishu/CodeHack/master/screenshots/IMG_3.png" alt="Main Screen" width="300"/>
 
 ### Sign Up screen
-![Sign Up](https://raw.githubusercontent.com/shubhamvishu/CodeHack/master/screenshots/IMG_4.png)
+<img src="https://raw.githubusercontent.com/shubhamvishu/CodeHack/master/screenshots/IMG_4.pngg" alt="Main Screen" width="300"/>
 
